@@ -39,8 +39,8 @@ class Tile extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade300),
         color: switch (hitType) {
           HitType.hit => Colors.green,
-          HitType.miss => Colors.yellow,
-          HitType.none => Colors.white,
+          HitType.partial => Colors.yellow,
+          HitType.miss => Colors.grey,
           _ => Colors.white,
         },
       ),
