@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:math';
+import 'lista.dart';
 
 const List<String> allLegalGuesses = [...legalWords, ...legalGuesses];
 const defaultNumGuesses = 5;
@@ -8,22 +9,28 @@ enum HitType { none, hit, partial, miss, removed }
 
 typedef Letter = ({String char, HitType type});
 
-const legalWords = <String>["aback", "abase", "abate", "abbey", "abbot", "coisa"];
+const legalWords = palavrasAceitas;
 
-/// Legal guesses minus legal wordles
-const legalGuesses = <String>[
-  "aback",
-  "abase",
-  "abate",
-  "abbey",
-  "abbot",
-  "abhor",
-  "abide",
-  "abled",
-  "abode",
-  "abort",
-  "aaaaa",
-];
+const legalGuesses = palpitesAceitos;
+
+
+
+// const legalWords = <String>["aback", "abase", "abate", "abbey", "abbot", "coisa"];
+
+// /// Legal guesses minus legal wordles
+// const legalGuesses = <String>[
+//   "aback",
+//   "abase",
+//   "abate",
+//   "abbey",
+//   "abbot",
+//   "abhor",
+//   "abide",
+//   "abled",
+//   "abode",
+//   "abort",
+//   "aaaaa",
+// ];
 
 /// This class holds game state for a single round of Bulls and Cows,
 /// and exposes methods that a UI would need to manage the game state.
