@@ -85,7 +85,9 @@ class _GamePageState extends State<GamePage> {
                 _game.guess(guess);
               });
             }
-          )
+          ),
+          if (_game.didWin) Text('Parabéns, você venceu!')
+          else if (_game.didLose) Text('Que pena, você perdeu! A palavra era ${_game.matchGuessOnly}'),
         ],
       ),
       );
@@ -102,6 +104,7 @@ class GuessInput extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
 
   final FocusNode _focusNode = FocusNode();
+
 
   void _onSubmit() {
     onSubmitGuess(_textEditingController.text);
