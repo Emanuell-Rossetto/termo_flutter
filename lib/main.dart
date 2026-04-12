@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: Text('TermoFake'),
           ),
         ),
@@ -32,7 +32,9 @@ class Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.bounceIn,
       width: 60,
       height: 60,
       decoration: BoxDecoration(
@@ -67,13 +69,14 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Center(
+      child: Padding(padding: const EdgeInsets.all(8.0),
       child: Column(
         spacing: 5.0,
         children: [  
           for (var guess in _game.guesses)
             Row(
+              mainAxisSize: MainAxisSize.min,
               spacing: 5.0,
               children: [
                 for (var letter in guess) Tile(letter.char, letter.type),
@@ -93,7 +96,7 @@ class _GamePageState extends State<GamePage> {
                 else {
                   ScaffoldMessenger.of(context).showSnackBar(
                      SnackBar(
-                      content: Text("${guess} Nao é uma paravra valida"),
+                      content: Text("${guess}, não é uma palavra valida"),
                       duration: Duration(seconds: 2),
                       behavior: SnackBarBehavior.floating,
                     )
@@ -107,7 +110,8 @@ class _GamePageState extends State<GamePage> {
           else if (_game.didLose) Text('Que pena, você perdeu! A palavra era ${_game.hiddenWord}'),
         ],
       ),
-      );
+      ),
+    );
   }
 }
 
@@ -132,10 +136,12 @@ class GuessInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
+        SizedBox(
+          width: 400,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 25.0, top: 8.0),
             child: TextField(
               maxLength: 5,
               decoration: InputDecoration(
