@@ -38,8 +38,8 @@ class Tile extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         color: switch (hitType) {
-          HitType.hit => Colors.green,
-          HitType.partial => Colors.yellow,
+          HitType.hit => const Color.fromARGB(255, 59, 109, 60),
+          HitType.partial => const Color.fromARGB(255, 219, 198, 5),
           HitType.miss => Colors.grey,
           _ => Colors.white,
         },
@@ -71,7 +71,7 @@ class _GamePageState extends State<GamePage> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         spacing: 5.0,
-        children: [
+        children: [  
           for (var guess in _game.guesses)
             Row(
               spacing: 5.0,
@@ -81,13 +81,30 @@ class _GamePageState extends State<GamePage> {
             ),
           GuessInput(
             onSubmitGuess: (String guess) {
-              setState(() {
-                _game.guess(guess);
+
+
+              if (_game.isLegalGuess(guess)){
+
+                setState(() {
+                  _game.guess(guess);
               });
+                  
+                }
+                else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                     SnackBar(
+                      content: Text("${guess} Nao é uma paravra valida"),
+                      duration: Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
+                    )
+                  );
+                  
+                }
+              
             }
           ),
           if (_game.didWin) Text('Parabéns, você venceu!')
-          else if (_game.didLose) Text('Que pena, você perdeu! A palavra era ${_game.matchGuessOnly}'),
+          else if (_game.didLose) Text('Que pena, você perdeu! A palavra era ${_game.hiddenWord}'),
         ],
       ),
       );
